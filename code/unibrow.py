@@ -17,11 +17,11 @@ if file:
     selected_columns = st.multiselect("Select columns to display", columns)
     if st.checkbox("Filter data"):
         type_columns = get_columns_of_type(df, 'object')
-        filter_column = st.selectbox("Select column to filter", type_columns)
-        if filter_column:
-            values = get_unique_values(df, filter_column)
+        filter_columns = st.selectbox("Select column to filter", type_columns)
+        if filter_columns:
+            values = get_unique_values(df, filter_columns)
             value = st.selectbox("Select value to filter on", values)
-            df_show = df[df[filter_column] == value][selected_columns]
+            df_show = df[df[filter_columns] == value][selected_columns]
     else:
         df_show = df[selected_columns]
 
