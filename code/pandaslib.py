@@ -9,7 +9,7 @@ def get_column_names(df : pd.DataFrame) -> list[str]:
     Get all column names of a pandas dataframe df
     Returns the names as a list of string
     '''
-    pass # todo: replace this line and add your code
+    return df.columns.tolist()
 
 
 def get_columns_of_type(df : pd.DataFrame, numpy_type: any) -> list[str]:
@@ -17,14 +17,21 @@ def get_columns_of_type(df : pd.DataFrame, numpy_type: any) -> list[str]:
     Return the column names of a pandas dataframe only when 
     the values in the column match the numpy_type
     '''
-    pass # todo: replace this line and add your code
+    columns = []
+    for c in df.columns:
+        if df[c].dtype == numpy_type:
+            columns.append(c)
+    return columns
+
 
 
 def get_unique_values(df : pd.DataFrame, column_name: str) -> list:
     '''
     Get a list of unique values of a column in a pandas dataframe
     '''
-    pass # todo: replace this line and add your code
+    uniquecol = df[column_name].unique()
+    uniquelist = uniquecol.tolist()
+    return uniquelist
 
 def get_file_extension(file_path : str) -> str:
     '''
@@ -34,7 +41,9 @@ def get_file_extension(file_path : str) -> str:
     'countries.json' -> 'json'
 
     '''
-    pass # todo: replace this line and add your code
+    filesplit = file_path.split('.')
+    return filesplit[-1]
+
 
 def load_file(file_path: str, ext: str) -> pd.DataFrame:
     '''
@@ -44,7 +53,17 @@ def load_file(file_path: str, ext: str) -> pd.DataFrame:
     - when csv assume first row is header
     - when json assume record-oriented data
     '''
-    pass # todo: replace this line and add your code
+    if ext == 'csv':
+        csv = pd.read_csv(file_path, header=0)
+        return csv
+    if ext == 'json':
+        json = pd.read_json(file_path, orient='records')
+        return json
+    if ext == 'xlsx':
+        xlsx = pd.read_excel(file_path)
+        return xlsx
+    else: 
+        return None
 
 if __name__ == '__main__':
     df = pd.DataFrame({ 
